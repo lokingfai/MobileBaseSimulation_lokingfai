@@ -58,7 +58,7 @@ if(dev==null){
 }
 
 base.DriveArc(new TransformNR(), 0);
-
+PhysicsCore core = PhysicsEngine.get()
 PhysicsEngine.clear();
 
 MobileBasePhysicsManager m;
@@ -69,7 +69,7 @@ while(MobileBaseCadManager.get( base).getProcesIndictor().getProgress()<1){
 }
 
 HashMap<DHLink, CSG> simplecad = MobileBaseCadManager.getSimplecad(base) 
-CSG baseCad=MobileBaseCadManager.getBaseCad(base)
+def baseCad=MobileBaseCadManager.getBaseCad(base)
 m = new MobileBasePhysicsManager(base, baseCad, simplecad);
 
 Thread t =new Thread({
@@ -82,7 +82,7 @@ Thread t =new Thread({
 	}
 })
 t.start()
-int msLoopTime =50;
+int msLoopTime =200;
 BowlerStudioController.setCsg(PhysicsEngine.getCsgFromEngine());
 // run the physics engine for a few cycles
 for (int i = 0; i < 600&& !Thread.interrupted(); i++) {
