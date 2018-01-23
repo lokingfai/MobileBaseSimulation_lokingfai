@@ -30,6 +30,7 @@ import Jama.Matrix;
 import eu.mihosoft.vrl.v3d.CSG;
 import javafx.application.Platform;
 import javafx.scene.transform.Affine;
+
 MobileBase base;
 java.util.List<String> possible = DeviceManager.listConnectedDevice(MobileBase.class)
 Object dev ;
@@ -42,7 +43,7 @@ println "found: "+dev
 //Check if the device already exists in the device Manager
 if(dev==null){
 	//Create the kinematics model from the xml file describing the D-H compliant parameters. 
-	def file=["https://gist.github.com/bcb4760a449190206170.git","CarlTheRobot.xml"]as String[]
+	def file=["https://github.com/madhephaestus/carl-the-hexapod.git","CarlTheRobot.xml"]as String[]
 	//def file=["https://gist.github.com/bcb4760a449190206170.git","CarlTheRobot.xml"]as String[]
 	String xmlContent = ScriptingEngine.codeFromGit(file[0],file[1])[0];
 	MobileBase mb =new MobileBase(IOUtils.toInputStream(xmlContent, "UTF-8"));
@@ -54,7 +55,7 @@ if(dev==null){
 }else{
 	println "Arm found, runing code"
 	//the device is already present on the system, load the one that exists.
-  	base=(MobileBase)dev
+  	base=(MobileBase) dev
 }
 
 base.DriveArc(new TransformNR(), 0);
@@ -63,8 +64,8 @@ PhysicsEngine.clear();
 
 MobileBasePhysicsManager m;
 
-while(MobileBaseCadManager.get( base).getProcesIndictor().getProgress()<1){
-	println "Waiting for cad to get to 1:"+MobileBaseCadManager.get( base).getProcesIndictor().getProgress()
+while(MobileBaseCadManager.get( base).getProcesIndictor().get()<1){
+	println "Waiting for cad to get to 1:"+MobileBaseCadManager.get( base).getProcesIndictor().get()
 	ThreadUtil.wait(1000)
 }
 
